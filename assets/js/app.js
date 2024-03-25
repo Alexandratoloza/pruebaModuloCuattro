@@ -1,266 +1,131 @@
-export class Animales {
-    #name
-    #imagen
-    #edad
-    #comentarios
-    #sonido
-    
-    constructor(name, imagen, edad, comentarios, sonido) {
-        this.#name = name;
-        this.#imagen = imagen;
-        this.#edad = edad;
-        this.#comentarios = comentarios;
-        this.#sonido = sonido;
-
-
-    }
-
-    get name() {
-        return this.#name
-    }
-
-    get imagen() {
-        return this.#imagen
-    }
-
-    get edad (){
-        return this.#edad
-    }
-    get comentarios(){
-        return this.#comentarios
-    }
-    get sonido(){
-        return this.#sonido
-    }
-
-    set name(newName) {
-        this.#name = newName
-    }
-
-    set imagen(newImagen) {
-        this.#imagen = newImagen
-    }
-    set edad (newEdad){
-        this.#edad = newEdad
-    }
-    set comentarios (newComentarios){
-        this.#comentarios = newComentarios
-    }
-    set sonido  (newSonido){
-        this.#sonido = newSonido
-    }
-
-
-    reproducirSonido() {
-        const audio = new Audio(this.sonido);
-        audio.play();
-    }
-    pintarHTML() {
-        console.log('estoy pintando al personaje')
-    }
-};
-
-
-class Leon extends Animales {
-    constructor (name, edad, comentarios, imagen, sonido){
-        super (name, edad, comentarios, imagen, sonido);
-    }
-    pintarHTML(elemento) {
-        console.log(`Estoy pintando al ${this.name}`)
-        elemento.innerHTML += `<li> ${this.name} <img src"${this.imagen}"</li>`
-
+// Clase Animal
+class Animal {
+    constructor(nombre, edad, comentarios, imagen, Audio) {
+        this.nombre = nombre;
+        this.edad = edad;
+        this.comentarios = comentarios;
+        this.imagen = imagen;
+        this.Audio =Audio;
     }
 }
 
-class Lobo extends Animales {
-    constructor (name, edad, comentarios, imagen, sonido){
-        super (name, edad, comentarios, imagen, sonido);
-    }
-    
-    pintarHTML(elemento) {
-        console.log(`Estoy pintando al ${this.name}`)
-        elemento.innerHTML += `<li> ${this.name} <img src"${this.imagen}"</li>`
-
-    }
-}
-class Oso extends Animales {
-    constructor (name, edad, comentarios, imagen, sonido){
-        super (name, edad, comentarios, imagen, sonido);
-    }
-    pintarHTML(elemento) {
-        console.log(`Estoy pintando al ${this.name}`)
-        elemento.innerHTML += `<li> ${this.name} <img src"${this.imagen}"</li>`
-
+// Clase Leon
+class Leon extends Animal {
+    constructor(nombre, edad, comentarios, imagen, Audio) {
+        super(nombre, edad, comentarios, imagen,Audio);
+        this.imagen = 'assets/imgs/leon.png'; // Ruta de la imagen del león
+        this.Audio = 'assets/sounds/Rugido.mp3'
     }
 }
 
-class Serpiente extends Animales {
-    constructor (name, edad, comentarios, imagen, sonido){
-        super (name, edad, comentarios, imagen, sonido);
-    }
-    pintarHTML(elemento) {
-        console.log(`Estoy pintando al ${this.name}`)
-        elemento.innerHTML += `<li> ${this.name} <img src"${this.imagen}"</li>`
-
+// Clase Lobo
+class Lobo extends Animal {
+    constructor(nombre, edad, comentarios, imagen, Audio) {
+        super(nombre, edad, comentarios, imagen, Audio);
+        this.imagen = 'assets/imgs/Lobo.jpg';
+        this.Audio = 'assets/sounds/Aullido.mp3';
     }
 }
-class Aguila extends Animales {
-    constructor (name, edad, comentarios, imagen, sonido){
-        super (name, edad, comentarios, imagen, sonido);
+
+// Clase Oso
+class Oso extends Animal {
+    constructor(nombre, edad, comentarios, imagen, Audio) {
+        super(nombre, edad, comentarios, imagen, Audio);
+        this.imagen = 'assets/imgs/Oso.jpg';
+        this.Audio = 'assets/sounds/Gruñido.mp3';
     }
-    pintarHTML(elemento) {
-        console.log(`Estoy pintando al ${this.name}`)
-        elemento.innerHTML += `<li> ${this.name} <img src"${this.imagen}"</li>`
-
-    }
-};
-// Array
-let animales = [];
-
-let animalSeleccionado;
-
-export async function imagenes (){
-    try{
-        const imagenes = await new Promise (resolve => {
-            setTimeout (( ) => {
-                resolve({
-                    Leon: 'assets/imgs/leon.png',
-                    Lobo: 'assets/imgs/Lobo.jpg',
-                    Oso: 'assets/imgs/Oso.jpg',
-                    Serpiente: 'assets/imgs/Serpiente.jpg',
-                    aguila: 'assets/imgs/Aguila.png',
-
-                });
-            }, 1000);
-        });
-        return imagenes;
-
-    } catch (e){
-        console.e('error', error);
-        throw error;
-
-    }
-
 }
+
+// Clase Serpiente
+class Serpiente extends Animal {
+    constructor(nombre, edad, comentarios, imagen, Audio) {
+        super(nombre, edad, comentarios, imagen, Audio);
+        this.imagen = 'assets/imgs/Serpiente.jpg';
+        this.Audio = 'assets/sounds/Siseo.mp3';
+    }
+}
+
+// Clase Aguila
+class Aguila extends Animal {
+    constructor(nombre, edad, comentarios, imagen, Audio) {
+        super(nombre, edad, comentarios, imagen, Audio);
+        this.imagen = 'assets/imgs/Aguila.png';
+        this.Audio = 'assets/sounds/Chillido.mp3';
+    }
+}
+
+// Función autoejecutable IIFE
 (async () => {
-
+    // Realizar consulta asíncrona para obtener las imágenes correspondientes a los animales
     try {
-        const response = await fetch("animales.json")
-        //console.log(response)
-        if (response.ok === false) {
-
-            throw {
-                codigo: 404,
-                mensaje: "No esta en el listado"
-            }
-        }
-        const data = await response.json()
-        animales = data
-        console.log(data)
-    } catch (e) {
-        console.log(e)
+        const response = await fetch('animales.json');
+        const data = await response.json();
+        console.log(data);
+    } catch (error) {
+        console.error('Error al obtener las imágenes:', error);
     }
 })();
 
-
-
-
-
-const btnRegistrar = document.querySelector('#btnRegistrar')
-const formControl = document.querySelector("#formControl")
-const lisTanimal = document.querySelector("#lisTanimal")
-const edadAnimal = document.querySelector("#edadAnimal")
-const comentarios = document.querySelector("#comentarios")
-const player = document.querySelector("#comentarios")
-const exampleModal = document.querySelector("#exampleModal")
-
-
-
-
-btnRegistrar.addEventListener('click', async (evento) => {
-    evento.preventDefault()
-    console.log('me estas procesando')
-    console.log(lisTanimal.value)
-    //console.log(edadAnimal.value)
-    //console.log(comentarios.value)
-   console.log(animales) // array
-    let AnimalEncontrado = animales.find((item) => item.name.toLowerCase() === lisTanimal.value.toLowerCase());
-    
-
-    //console.log(AnimalEncontrado)
-
-    switch (lisTanimal.value) {
-        case "Leon":
-            animalSeleccionado = new Leon (AnimalEncontrado.name, AnimalEncontrado.imagen)
-            animalSeleccionado.pintarHTML(lisTanimal);
-            break
-        case "Lobo":
-            animalSeleccionado = new Lobo(AnimalEncontrado.name, AnimalEncontrado.imagen)
-            animalSeleccionado.pintarHTML(lisTanimal);
-            
-            break
-        case "Oso":
-            animalSeleccionado= new Oso(AnimalEncontrado.name, AnimalEncontrado.imagen)
-            
-            animalSeleccionado.pintarHTML(lisTanimal);
-            
-            break
-        case "Serpiente":
-            animalSeleccionado= new Serpiente(AnimalEncontrado.name, AnimalEncontrado.imagen)
-            animalSeleccionado.pintarHTML(lisTanimal);
-            
-            break
-        case "Aguila":
-            animalSeleccionado = new Aguila(AnimalEncontrado.name, AnimalEncontrado.imagen)
-            animalSeleccionado.pintarHTML(lisTanimal);
-            
-            break
+// Función para registrar un nuevo animal
+function registrarAnimal() {
+    // Obtener valores del formulario
+    const nombreAnimal = document.getElementById('listaAnimal').value;
+    const edadAnimal = document.getElementById('edadAnimal').value;
+    const comentariosAnimal = document.getElementById('comentarios').value;
+   
+    // Crear instancia del animal seleccionado
+    let nuevoAnimal;
+    switch (nombreAnimal) {
+        case 'Leon':
+            nuevoAnimal = new Leon(nombreAnimal, edadAnimal, comentariosAnimal,  '' );
+            break;
+        case 'Lobo':
+            nuevoAnimal = new Lobo(nombreAnimal, edadAnimal, comentariosAnimal, '');
+            break;
+        case 'Oso':
+            nuevoAnimal = new Oso(nombreAnimal, edadAnimal, comentariosAnimal, '');
+            break;
+        case 'Serpiente':
+            nuevoAnimal = new Serpiente(nombreAnimal, edadAnimal, comentariosAnimal,  '');
+            break;
+        case 'Aguila':
+            nuevoAnimal = new Aguila(nombreAnimal, edadAnimal, comentariosAnimal, '');
+            break;
+        default:
+            console.error('Animal no válido');
     }
-    
-    animalSeleccionado.reproducirSonido ();
-
-    lisTanimal.value = '';
-    edadAnimal.value = '';
-    comentarios.value = '';
-
-    const fila = document.createElement ('div');
-    fila.classList.add('animal-row');
-    fila.innerHTML =  
-    `<div class="animal-cell">${animales.name}</div>`
-    `<div class="animal-cell">${animales.edad}</div>`
-    `<div class="animal-cell">${animales.comentarios}</div>`
-   ` <div class="animal-cell"><img src="${animales.imagen}" alt="${animales.nombre}" class="animal-image"></div>`;
+    // Agregar el nuevo animal a la tabla
+    agregarAnimalATabla(nuevoAnimal);
+}
 
 
-tablaAnimales.appendChild(fila);
-{
+// Función para agregar un animal a la tabla
+function agregarAnimalATabla(animal) {
+    const tabla = document.getElementById('registrarAnimales');
+    const nuevoElemento = document.createElement('div');
+    nuevoElemento.classList.add('animal-card');
+    nuevoElemento.innerHTML = `
+      <div class="animal-img">
+        <img src="${animal.imagen}" alt="${animal.nombre}" />
+      </div>
+      <div class="animal-info">
+        <h3>${animal.nombre}</h3>
+        <p><strong>Edad:</strong> ${animal.edad}</p>
+        <p><strong>Comentarios:</strong> ${animal.comentarios}</p>
+        <p><strong>sonido:</strong> ${animal.sonido}</p>
+      </div>
+    `;
+    tabla.appendChild(nuevoElemento);
+}
 
-}// else {
-   // alert ('Complete los datos del animal')
-//} //catch (e){
-  //  console.log ('error', error)
-//}
-    
+// Evento click del botón "Agregar"
+document.getElementById('BtnRegistrar').addEventListener('click', () => {
+
+
 
 });
 
-// imagen del animal 
-document.addEventListener ('click', async (event) => {
-    const target = event.target; 
-    if(target.classList.contains('animales-imagen')){
-        const animalName = target.alt;
 
-        console.log('Detalle del animal:', animalName);
 
-    }
-});
-
-document.addEventListener('click', async (event) => {
-    const target = event.target;
-    if(target.id === 'btnAudio'){
-        const audioSrc = target.dataset.audioSrc;
-        
-    }
-})
 
 
