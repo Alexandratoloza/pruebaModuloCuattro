@@ -1,13 +1,54 @@
-// Clase Animal
 class Animal {
     constructor(nombre, edad, comentarios, imagen, sonido) {
-        this.nombre = nombre;
-        this.edad = edad;
-        this.comentarios = comentarios;
-        this.imagen = imagen;
-        this.sonido = sonido;
+        this._nombre = nombre;
+        this._edad = edad;
+        this._comentarios = comentarios;
+        this._imagen = imagen;
+        this._sonido = sonido;
     }
-}
+
+    // Getter y Setter para el nombre
+    get nombre() {
+        return this._nombre;
+    }
+    set nombre(nuevoNombre) {
+        this._nombre = nuevoNombre;
+    }
+
+    // Getter y Setter para la edad
+    get edad() {
+        return this._edad;
+    }
+    set edad(nuevaEdad) {
+        this._edad = nuevaEdad;
+    }
+
+    // Getter y Setter para los comentarios
+    get comentarios() {
+        return this._comentarios;
+    }
+    set comentarios(nuevosComentarios) {
+        this._comentarios = nuevosComentarios;
+    }
+
+    // Getter y Setter para la imagen
+    get imagen() {
+        return this._imagen;
+    }
+    set imagen(nuevaImagen) {
+        this._imagen = nuevaImagen;
+    }
+
+    // Getter y Setter para el sonido
+    get sonido() {
+        return this._sonido;
+    }
+    set sonido(nuevoSonido) {
+        this._sonido = nuevoSonido;
+    }
+};
+
+
 
 // Función para cargar los datos del archivo JSON
 async function cargarDatosAnimales() {
@@ -53,6 +94,8 @@ async function registrarAnimal() {
     } else {
         console.error('Animal no encontrado en los datos.');
     }
+  
+
 }
 
 // Función para agregar un animal a la tabla
@@ -70,7 +113,6 @@ function agregarAnimalATabla(animal) {
         <p><strong>Comentarios:</strong> ${animal.comentarios} </p>
         <audio controls>
           <source src="${animal.sonido}" type="audio/mp3">
-          Tu navegador no soporta el elemento de audio.
         </audio>
       </div>
     `;
@@ -92,18 +134,5 @@ function mostrarImagen(rutaImagen) {
     preview.appendChild(imagen);
 }
 
-// Función para mostrar los comentarios del animal seleccionado
-function mostrarComentarios(comentarios) {
-    const comentariosElement = document.getElementById("comentarios-preview");
-    // Limpiar el contenido previo de los comentarios
-    comentariosElement.innerHTML = "";
-    // Crear un elemento de párrafo para cada comentario y agregarlo al contenedor de comentarios
-    comentarios.split('\n').forEach(comentario => {
-        const comentarioElement = document.createElement("p");
-        comentarioElement.textContent = comentario;
-        comentariosElement.appendChild(comentarioElement);
-    });
-}
 
-// Evento click del botón "Agregar"
 document.getElementById('BtnRegistrar').addEventListener('click', registrarAnimal);

@@ -7,13 +7,19 @@ body {
   background-image: url("../imgs/fondo.jpg");
   background-position: bottom;
   background-size: cover;
-  color: #f0f0f0;
+  color: white;
   background-repeat: no-repeat;
   height: 100vh;
   padding: 100px;
   
 }
 
+
+#Tabla{
+
+  color: white;
+  text-align: justify;
+}
 /* Formulario */
 
 #preview {
