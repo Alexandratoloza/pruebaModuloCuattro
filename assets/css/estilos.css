@@ -7,6 +7,7 @@ body {
   background-image: url("../imgs/fondo.jpg");
   background-position: bottom;
   background-size: cover;
+  color: #f0f0f0;
   background-repeat: no-repeat;
   height: 100vh;
   padding: 100px;
@@ -50,13 +51,17 @@ body {
 }
 
 .animal-img {
-  width: 100px; /* Ancho del contenedor de la imagen */
-  height: 100px; /* Alto del contenedor de la imagen */
+  width: 200px; 
+  height: 200px;
+  display: flex;
+  justify-content: center;
 }
 
 .animal-img img {
-  width: 110%; /* Ajustar el ancho de la imagen al contenedor */
-  height: 100%; /* Ajustar la altura de la imagen al contenedor */
-  object-fit: cover; /* Hacer que la imagen se ajuste al contenedor manteniendo la relación de aspecto */
+  width: 100%; 
+  height: 100%; 
+  object-fit: cover; 
 }
+
+
 
